@@ -13,9 +13,9 @@ const _ = require('lodash');
 /**
   * Internal files import
 */
-var login = require('routes/login');
-var register = require('routes/register');
-var {api} = require('db_models/api');
+var login = require('./routes/login');
+var register = require('./routes/register');
+var {api} = require('./db_models/api');
 
 /**
   * Objects defination
