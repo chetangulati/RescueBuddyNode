@@ -11,7 +11,7 @@ const fs = require('./')
   * Files import
 */
 const {mongoose} = require('./../db/mongoose');
- 
+
 /**
   * keys
 */
@@ -62,7 +62,7 @@ var UserSchema = mongoose.Schema({
   },
   regDevice: {
     type: String,
-  }
+  },
   contact: {
     type: String,
     required: true,
