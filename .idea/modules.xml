@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/Rescue Buddy.iml" filepath="$PROJECT_DIR$/.idea/Rescue Buddy.iml" />
+      <module fileurl="file://G:/Python Development/RescueBuddy/.idea/RescueBuddy.iml" filepath="G:/Python Development/RescueBuddy/.idea/RescueBuddy.iml" />
+    </modules>
+  </component>
+</project>
