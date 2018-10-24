@@ -15,7 +15,8 @@ const _ = require('lodash');
 */
 var login = require('./routes/login');
 var register = require('./routes/register');
-var {api} = require('./db_models/api');
+var logout = require('./routes/logout');
+// var {api} = require('./db_models/api');
 
 /**
   * Objects defination
@@ -44,6 +45,7 @@ app.use(express.static('media/uploads/'));
 */
 app.use('/login', login);
 app.use('/register', register);
+app.use('/logout', logout);
 
 /**
   * find api

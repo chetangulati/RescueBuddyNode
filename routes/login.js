@@ -1,10 +1,11 @@
 const {User} = require('./../db_models/user');
 
-const express = requrire('express');
+const _ = require('lodash');
+const express = require('express');
 
 var route = express.Router();
 
-route.post('/login', (req, res) => {
+route.post('/', (req, res) => {
   var body = _.pick(req.body, ['contact']);
 
   User.findByCredentials(body.contact).then((user) => {
@@ -13,6 +14,7 @@ route.post('/login', (req, res) => {
       });
     }).catch((err) => {
       res.status(401).send({err});
+      console.log(err);
     });
 });
 

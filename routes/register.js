@@ -1,11 +1,12 @@
 const {User} = require('./../db_models/user');
 
-const express = requrire('express');
+const _ = require('lodash');
+const express = require('express');
 
 var route = express.Router();
 
-route.post('/register', (req, res) => {
-  var body = _.pick(req.body, ['email','contact','age','gender','name','address','height','weight']);
+route.post('/', (req, res) => {
+  var body = _.pick(req.body, ['email','contact','age','gender','name','address','height','weight', 'lon', 'lat']);
   var user = new User(body);
 
   user.save().then(() => {

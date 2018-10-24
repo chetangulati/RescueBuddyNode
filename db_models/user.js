@@ -5,7 +5,7 @@ const validator = require('validator');
 const jwt = require('jsonwebtoken');
 const _ = require('lodash');
 const bcrypt = require('bcryptjs');
-const fs = require('./')
+const fs = require('fs')
 
 /**
   * Files import
@@ -42,12 +42,10 @@ var UserSchema = mongoose.Schema({
   },
   lon:{
     type: Number,
-    required: true,
     minlength: 1
   },
   lat:{
     type: Number,
-    required: true,
     minlength: 1
   },
   email: {
@@ -88,15 +86,12 @@ var UserSchema = mongoose.Schema({
 UserSchema.methods.generateAuthToken = function () {
   var user = this;
   var access = 'auth';
-  var signOptions = {
-    algorithm:  "RS512"
-  };
-  var token = jwt.sign({_id: user._id.toHexString(), access}, privateKey, signOptions).toString();
+  var token = jwt.sign({_id: user._id.toHexString(), access}, 'RescueBuddy').toString();
   user.tokens.push({access, token});
-
+  console.log(token);
   return user.save().then(() => {
     return token;
-  });
+  })
 };
 
 UserSchema.methods.toJSON = function () {
@@ -120,11 +115,8 @@ UserSchema.methods.removeToken = function (token) {
 UserSchema.statics.findByToken = function (token) {
   var User = this;
   var decoded;
-  var verifyOptions={
-    'algorithm': ["RSA256", "RSA512"];
-  }
   try {
-    decoded = jwt.verify(token, publicKey, verifyOptions);
+    decoded = jwt.verify(token, 'RescueBuddy');
   } catch (e) {
     return Promise.reject();
   }
@@ -150,8 +142,8 @@ UserSchema.statics.findByCredentials = function (contact) {
       //   } else {
       //     reject();
       //   }
-          resolve(user);
-      });
+      // });
+      resolve(user);
     });
   });
 };
