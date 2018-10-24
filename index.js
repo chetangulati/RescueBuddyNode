@@ -56,6 +56,6 @@ app.use('/register', register);
 
 module.exports = app;
 
-app.listen(process.env.PORT || 3000, "localhost", (req, res, next) => {
+app.listen(process.env.PORT || 3000, "10.160.0.2", (req, res, next) => {
   console.log("Server started at 3000 port");
 });
