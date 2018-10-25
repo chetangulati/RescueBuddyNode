@@ -148,6 +148,43 @@ UserSchema.statics.findByCredentials = function (contact) {
   });
 };
 
+//Get all registered UserSchema
+UserSchema.statics.getAllUsers = function(){
+  var User = this;
+  return User.find().select('_id email contact age gender name lon lat password date').then((users)=>{
+    return new Promise((resolve, reject) =>{
+      resolve(users);
+    });
+  })
+  .catch(err=>{
+    console.log(err);
+    return Promise.reject();
+  });
+}
+
+//Admin Checking findByCredentialsAdmin
+UserSchema.statics.findByCredentialAdmin = function (contact, pass) {
+  var User = this;
+  return User.findOne({contact}).then((user) => {
+    if (!user) {
+      return Promise.reject();
+    }
+    else if(user.is_admin == false){
+        return Promise.reject();
+    }
+    return new Promise((resolve, reject) => {
+      bcrypt.compare(pass, user.password, (err, res) => {
+        if (res) {
+          resolve(user);
+        } else {
+          reject();
+        }
+      });
+    });
+  });
+}
+
+
 // UserSchema.pre('save', function (next) {
 //   var user = this;
 //
