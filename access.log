@@ -43,3 +43,4 @@
 ::1 - - [25/Oct/2018:09:48:36 +0000] "POST /register HTTP/1.1" 400 573 "-" "PostmanRuntime/7.3.0"
 ::1 - - [25/Oct/2018:09:52:59 +0000] "POST /register HTTP/1.1" 400 164 "-" "PostmanRuntime/7.3.0"
 ::1 - - [25/Oct/2018:09:53:19 +0000] "POST /login HTTP/1.1" 200 - "-" "PostmanRuntime/7.3.0"
+::1 - - [25/Oct/2018:17:34:02 +0000] "POST /login/admin HTTP/1.1" 200 18 "-" "PostmanRuntime/7.3.0"

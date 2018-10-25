@@ -35,6 +35,14 @@ var UserSchema = mongoose.Schema({
     type: String,
     minlength: 1
   },
+  height:{
+    type: Number,
+    minlength: 1
+  },
+  weight: {
+    type: Number,
+    minlength: 1
+  },
   date: {
     type: Date,
     required: true,
@@ -43,6 +51,9 @@ var UserSchema = mongoose.Schema({
   lon:{
     type: Number,
     minlength: 1
+  },
+  height:{
+
   },
   lat:{
     type: Number,
@@ -94,12 +105,12 @@ UserSchema.methods.generateAuthToken = function () {
   })
 };
 
-UserSchema.methods.toJSON = function () {
-  var user = this;
-  var userObject = user.toObject();
-
-  return _.pick(userObject, ['_id', 'contact']);
-};
+// UserSchema.methods.toJSON = function () {
+//   var user = this;
+//   var userObject = user.toObject();
+//
+//   return _.pick(userObject, ['_id', 'contact']);
+// };
 
 
 UserSchema.methods.removeToken = function (token) {
@@ -130,7 +141,7 @@ UserSchema.statics.findByToken = function (token) {
 
 UserSchema.statics.findByCredentials = function (contact) {
   var User = this;
-  return User.findOne({contact}).then((user) => {
+  return User.findOne({contact}).select('_id email contact age gender name lon lat password date').then((user) => {
     if (!user) {
       return Promise.reject();
     }
