@@ -32,8 +32,5 @@ route.post('/admin', (req, res) => {
     });
 });
 
-route.post('/otp', async (req, res, next) => {
-  const
-});
 
 module.exports = route;
