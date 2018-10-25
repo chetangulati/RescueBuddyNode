@@ -34,12 +34,10 @@ app.set('view engine', 'hbs');
 /**
   * Middleware configuration
 */
-app.use(bodyParser.urlencoded());
-app.use(bodyParser.json());
 app.use(express.json());
 app.use(morgan('combined', {stream: logStream}));
 app.use(morgan('dev'));
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({extended: true}));
 app.use(cookieParser());
 app.use(express.static('media/uploads/'));
 

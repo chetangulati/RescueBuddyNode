@@ -1,5 +1,6 @@
 const {User} = require('./../db_models/user');
 
+const request = require('request');
 const _ = require('lodash');
 const express = require('express');
 
@@ -13,9 +14,13 @@ route.post('/', (req, res) => {
         res.header('x-auth', token).send();
       });
     }).catch((err) => {
-      res.status(401).send({err});
+      res.status(401).send({body});
       console.log(err);
     });
+});
+
+route.post('/otp', (req, res, next) => {
+
 });
 
 module.exports = route;
