@@ -8,6 +8,7 @@ const path = require('path');
 const morgan = require('morgan');
 const fs = require('fs');
 const hbs = require('hbs');
+const bodyParser = require('body-parser');
 const _ = require('lodash');
 
 /**
@@ -33,6 +34,8 @@ app.set('view engine', 'hbs');
 /**
   * Middleware configuration
 */
+app.use(bodyParser.urlencoded());
+app.use(bodyParser.json());
 app.use(express.json());
 app.use(morgan('combined', {stream: logStream}));
 app.use(morgan('dev'));
