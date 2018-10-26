@@ -51,9 +51,6 @@ var UserSchema = mongoose.Schema({
     type: Number,
     minlength: 1
   },
-  height:{
-
-  },
   lat:{
     type: Number,
     minlength: 1
@@ -163,7 +160,7 @@ UserSchema.statics.findByCredentials = function (contact, password) {
 //Get all registered UserSchema
 UserSchema.statics.getAllUsers = function(){
   var User = this;
-  return User.find().select('_id email contact age gender name lon lat password date').then((users)=>{
+  return User.find({ is_admin: { $eq: false } }).select('_id email contact age gender name lon lat').then((users)=>{
     return new Promise((resolve, reject) =>{
       resolve(users);
     });
