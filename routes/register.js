@@ -6,7 +6,7 @@ const express = require('express');
 var route = express.Router();
 
 route.post('/', (req, res) => {
-  var body = _.pick(req.body, ['email','contact','age','gender','name','address','height','weight', 'lon', 'lat']);
+  var body = _.pick(req.body, ['email','contact','age','gender','name','address','height','weight', 'lon', 'lat', 'password']);
   var user = new User(body);
 
   user.save().then(() => {

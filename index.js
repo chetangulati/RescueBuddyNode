@@ -17,6 +17,7 @@ const _ = require('lodash');
 var login = require('./routes/login');
 var register = require('./routes/register');
 var logout = require('./routes/logout');
+var gobag = require('./routes/gobag');
 // var {api} = require('./db_models/api');
 
 /**
@@ -47,7 +48,7 @@ app.use(express.static('media/uploads/'));
 app.use('/login', login);
 app.use('/register', register);
 app.use('/logout', logout);
-
+app.use('/gobag', gobag);
 /**
   * find api
 */

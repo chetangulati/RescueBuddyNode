@@ -13,12 +13,6 @@ const fs = require('fs')
 const {mongoose} = require('./../db/mongoose');
 
 /**
-  * keys
-*/
-var privateKey = fs.readFileSync('./keys/private.key', 'utf8');
-var publicKey = fs.readFileSync('./keys/public.key', 'utf8');
-
-/**
   * Schema defination
 */
 var UserSchema = mongoose.Schema({
@@ -42,6 +36,11 @@ var UserSchema = mongoose.Schema({
   weight: {
     type: Number,
     minlength: 1
+  },
+  is_admin:{
+    type: Boolean,
+    required: true,
+    default: false
   },
   date: {
     type: Date,
@@ -80,6 +79,7 @@ var UserSchema = mongoose.Schema({
   },
   password: {
     type: String,
+    required: true,
     minlength: 6,
   },
   tokens: [{
@@ -139,22 +139,23 @@ UserSchema.statics.findByToken = function (token) {
   });
 };
 
-UserSchema.statics.findByCredentials = function (contact) {
+UserSchema.statics.findByCredentials = function (contact, password) {
   var User = this;
   return User.findOne({contact}).then((user) => {
+    console.log({user, contact});
     if (!user) {
-      return Promise.reject();
+      return Promise.reject("User Not found");
     }
+    console.log(user);
     return new Promise((resolve, reject) => {
       // Use bcrypt.compare to compare password and user.password
-      // bcrypt.compare(password, user.password, (err, res) => {
-      //   if (res) {
-      //     resolve(user);
-      //   } else {
-      //     reject();
-      //   }
-      // });
-      resolve(user);
+      bcrypt.compare(password, user.password, (err, res) => {
+        if (res) {
+          resolve(user);
+        } else {
+          reject();
+        }
+      });
     });
   });
 };
@@ -196,20 +197,20 @@ UserSchema.statics.findByCredentialAdmin = function (contact, pass) {
 }
 
 
-// UserSchema.pre('save', function (next) {
-//   var user = this;
-//
-//   if (user.isModified('password')) {
-//     bcrypt.genSalt(10, (err, salt) => {
-//       bcrypt.hash(user.password, salt, (err, hash) => {
-//         user.password = hash;
-//         next();
-//       });
-//     });
-//   } else {
-//     next();
-//   }
-// });
+UserSchema.pre('save', function (next) {
+  var user = this;
+
+  if (user.isModified('password')) {
+    bcrypt.genSalt(10, (err, salt) => {
+      bcrypt.hash(user.password, salt, (err, hash) => {
+        user.password = hash;
+        next();
+      });
+    });
+  } else {
+    next();
+  }
+});
 
 var User = mongoose.model('User', UserSchema);
 

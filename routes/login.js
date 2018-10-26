@@ -6,16 +6,15 @@ const express = require('express');
 
 var route = express.Router();
 
-route.post('/', (req, res) => {
-  var body = _.pick(req.body, ['contact']);
+route.post('/', (req, res, next) => {
+  var body = _.pick(req.body, ['contact','password']);
 
-  User.findByCredentials(body.contact).then((user) => {
+  User.findByCredentials(body.contact, body.password).then((user) => {
       return user.generateAuthToken().then((token) => {
         res.header('x-auth', token).send();
       });
     }).catch((err) => {
-      res.status(401).send({body});
-      console.log(err);
+      res.status(401).send({err});
     });
 });
 
