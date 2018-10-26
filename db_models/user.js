@@ -99,7 +99,7 @@ UserSchema.methods.generateAuthToken = function () {
   var access = 'auth';
   var token = jwt.sign({_id: user._id.toHexString(), access}, 'RescueBuddy').toString();
   user.tokens.push({access, token});
-  console.log(token);
+  console.log("Hello world");
   return user.save().then(() => {
     return token;
   })
@@ -141,7 +141,7 @@ UserSchema.statics.findByToken = function (token) {
 
 UserSchema.statics.findByCredentials = function (contact) {
   var User = this;
-  return User.findOne({contact}).select('_id email contact age gender name lon lat password date').then((user) => {
+  return User.findOne({contact}).then((user) => {
     if (!user) {
       return Promise.reject();
     }

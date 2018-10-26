@@ -19,6 +19,10 @@ route.post('/', (req, res) => {
     });
 });
 
+route.post('/otp', (req, res, next) => {
+  res.send("under construction");
+});
+
 //admin login
 route.post('/admin', (req, res) => {
   var body = _.pick(req.body, ['contact', 'password']);
