@@ -1,4 +1,6 @@
 const {Items} = require('./../db_models/items');
+const {authenticateAdmin} = require('./../middleware/authenticateAdmin');
+const {authenticate} = require('./../middleware/authenticate');
 
 const express = require('express');
 
