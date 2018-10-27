@@ -18,6 +18,7 @@ route.post('/', (req, res, next) => {
     });
 });
 
+// OTP Under construction
 route.post('/otp', (req, res, next) => {
   res.send("under construction");
 });
@@ -25,6 +26,7 @@ route.post('/otp', (req, res, next) => {
 //admin login
 route.post('/admin', (req, res) => {
   var body = _.pick(req.body, ['contact', 'password']);
+
   User.findByCredentialAdmin(body.contact, body.password).then((user) => {
       return user.generateAuthToken().then((token) => {
         res.header('x-auth', token).json({"success":"true"});

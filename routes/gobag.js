@@ -16,9 +16,9 @@ route.get('/',authenticate, (req, res, next) => {
 
 route.post('/admin', authenticateAdmin, (req, res, next) => {
   var body = req.body;
-
   var data = new Items(body);
-  Items.save().then(() => {
+  // change to data not Items
+  data.save().then(() => {
     res.send({"success": "true"});
   }).catch((err) => {
     res.status(400).send(err);
