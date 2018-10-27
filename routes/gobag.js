@@ -7,7 +7,7 @@ const express = require('express');
 var route = express.Router();
 
 route.get('/',authenticate, (req, res, next) => {
-  Items.find().then((doc) => {
+  Items.find().select('_id name description min_count max_count expiry weight type').then((doc) => {
     res.send(doc);
   }).catch((err) => {
     res.status(400).send(err);
