@@ -20,7 +20,7 @@ route.get('/',authenticate, async (req, res, next) => {
       res.status(400).send(err);
     });
   } catch (e) {
-    res.status(500).send({err = "Server Error Occoured"});
+    res.status(500).send({"err": "Server Error Occoured"});
   }
 });
 
