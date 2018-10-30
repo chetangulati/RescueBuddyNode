@@ -15,7 +15,7 @@ const {mongoose} = require('./../db/mongoose');
 /**
   * Schema defination
 */
-var UserSchema = mongoose.Schema({
+var UserSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -79,6 +79,25 @@ var UserSchema = mongoose.Schema({
     required: true,
     minlength: 6,
   },
+  gobag: [{
+    name:{
+      type: String,
+      required: true,
+      minlength: 1
+    },
+    date:{
+      type: Date,
+      default: new Date()
+    },
+    recommended_items: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'items'
+    }],
+    additional_items: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'items'
+    }]
+  }],
   tokens: [{
     access: {
       type: String,

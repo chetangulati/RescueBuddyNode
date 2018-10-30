@@ -1,6 +1,6 @@
 const {mongoose} = require('./../db/mongoose');
 
-var itemSchema = mongoose.Schema({
+var itemSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
