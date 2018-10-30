@@ -179,7 +179,7 @@ UserSchema.statics.findByCredentials = function (contact, password) {
 //Get all registered UserSchema
 UserSchema.statics.getAllUsers = function(){
   var User = this;
-  return User.find({ is_admin: { $eq: false } }).select('_id email contact age gender name lon lat').then((users)=>{
+  return User.find({ is_admin: { $eq: false } }).select('_id email contact age gender name lon lat date').then((users)=>{
     return new Promise((resolve, reject) =>{
       resolve(users);
     });
@@ -201,11 +201,15 @@ UserSchema.statics.findByCredentialAdmin = function (contact, pass) {
         return Promise.reject();
     }
     return new Promise((resolve, reject) => {
-      bcrypt.compare(pass, user.password, (err, res) => {
-        if (res) {
-          resolve(user);
-        } else {
-          reject();
+      bcrypt.compare(pass ,user.password, (errors, result) => {
+        if(errors){
+          console.log("bcrypt error: "+errors);
+          return Promise.reject();
+        }
+        else {
+          if(result==true)
+            resolve(user);
+          return Promise.reject();
         }
       });
     });

@@ -7,6 +7,7 @@ var route = express.Router();
 
 route.post('/', (req, res) => {
   var body = _.pick(req.body, ['email','contact','age','gender','name','address','height','weight', 'lon', 'lat', 'password']);
+  body.password = bcrypt.hashSync(body.password, bcrypt.genSaltSync(12));
   var user = new User(body);
 
   user.save().then(() => {
